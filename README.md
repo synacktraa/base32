@@ -30,12 +30,12 @@ base32 --encode "Hack Teh World"
 ```
 Output:
 ```
-SGFjayBUZWggV29ybGQ=
+JBQWG2ZAKRSWQICXN5ZGYZA=
 ```
 ---
 ## Decoding:
 ```powershell
-base32 --encode "SGFjayBUZWggV29ybGQ="
+base32 --encode "JBQWG2ZAKRSWQICXN5ZGYZA="
 ```
 Output:
 ```
