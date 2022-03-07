@@ -134,6 +134,7 @@ int decode(char*base32Data){
         return 1;
     } else 
         printf("%s\n", decodeData);
+    return 0;
 
 }
 
