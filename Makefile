@@ -14,4 +14,4 @@ base_32: base32.o base32_utils.o
 	$(BIN) $(CFLAGS) $^ -o $@
 
 clean:
-	rm *.o base_32 2>/dev/null
+	rm *.o base_32 *.gch 2>/dev/null
