@@ -1,19 +1,21 @@
 //=================================================_
 //  Base32 Encoding and Decoding Algorithm         |_ 
-//      Author: HackitMikey [Mikey]                 |_
+//      Author: SynAcktraa [Mikey]                  |_
 // (Cli Wizard) base32 algorithm implemented in C.   |_
 //     © This tool is based on UTF-8 charset.          |_
 //=======================================================
 
 
 #include<stdio.h>
-#include<stdlib.h>
-#include"utils.h"
+#include"base32_utils.h"
+
+#define DUMP_TSIZE 2000
+#define DATA_TSIZE 500
 
 void encode(char*string){
 
-    char five_bit_bin[10], base32_val[400];
-    char Ox49_val_bin[10], bin_dump[800];
+    char five_bit_bin[10], base32_val[DATA_TSIZE];
+    char Ox49_val_bin[10], bin_dump[DUMP_TSIZE];
     int i, j, k, bin_dump_len, ascii_val;
 
     memreset(Ox49_val_bin, Strlen(Ox49_val_bin));
@@ -48,31 +50,32 @@ void encode(char*string){
     base32_val[j] = '\0';
     while(Strlen(base32_val)%4 != 0)
         insert(base32_val, Strlen(base32_val), 0x3d, Strlen(base32_val), sizeof(base32_val));
-    printf("%s", base32_val);
+    printf("%s\n", base32_val);
 
 }
 
-void decode(char*base32Data){
+int decode(char*base32Data){
 
 	int i, j, k, data_len = Strlen(base32Data);
-    char bin_dump[500], Ox49_val_bin[10], byte_bin[10], decodeData[100], temp_hold[100];
+    char bin_dump[DUMP_TSIZE], Ox49_val_bin[10], byte_bin[10], decodeData[DATA_TSIZE], temp_hold[DATA_TSIZE];
 
 	while(*(base32Data+(data_len-1)) == 0x3D){
 		data_len = delete(base32Data, data_len-1, data_len);
 	}
 
+    if(data_len == 1)
+        return 1;
+
     for(i=0; *(base32Data+i)!=0; ++i){
         
         if(isLower(*(base32Data+i)) || *(base32Data+i)==0x30 || *(base32Data+i)==0x31 || *(base32Data+i)==0x38 || *(base32Data+i)==0x39){
-            fprintf(stderr, "Error: Invalid base32 characters");
-            exit(1);
+            fprintf(stderr, "Error: Invalid base32 characters\n");
+            return 1;
         }
     }
     
-    if(data_len == 1)
-        exit(1);
-
     memreset(bin_dump, Strlen(bin_dump));
+    memreset(Ox49_val_bin, Strlen(Ox49_val_bin));
 
     for(i=0; *(base32Data+i)!=0; ++i){
 
@@ -82,6 +85,8 @@ void decode(char*base32Data){
             decToBin(*(base32Data+i)-0x18, Ox49_val_bin);
         } else if(*(base32Data+i) == 0x41)
             Strcpy(Ox49_val_bin, "00000");
+        else    
+            return 1;
 
         k = Strlen(Ox49_val_bin);
         while(Strlen(Ox49_val_bin)%5 != 0)
@@ -107,8 +112,9 @@ void decode(char*base32Data){
     *(decodeData+j) = '\0';
 
     if(*(decodeData)<0x20 || *(decodeData)>0x7e){
-        fprintf(stderr, "Error: The string to be decoded is not correctly encoded.");
-        exit(1);
+        fprintf(stderr, "Error: The string to be decoded is not correctly encoded.\n");
+        return 1;
+
     }else if(*(decodeData)>=0x20 && *(decodeData)<=0x7e){
         data_len = Strlen(decodeData);
         for(i=1; *(decodeData+i) != '\0'; ++i){
@@ -124,32 +130,34 @@ void decode(char*base32Data){
         delete(temp_hold, 0, Strlen(temp_hold));
     }
     if((*(temp_hold)<0x20 || *(temp_hold)>0x7e) && *(temp_hold) != 0x0){
-        fprintf(stderr, "Error: Decoded data is not valid UTF-8.\nPartial data after reading %d bytes: %s", j, decodeData);
-        exit(1);
+        fprintf(stderr, "Error: Decoded data is not valid UTF-8.\nPartial data after reading %d bytes: %s\n", j, decodeData);
+        return 1;
     } else 
-    printf("%s\n", decodeData);
+        printf("%s\n", decodeData);
 
 }
 
-    
-
-int main(int argc, char* argv[]){
+int main(int argc, char**argv){
 	
     if(argc==2){
-        if(!Strcmp(argv[1], "--help") || !Strcmp(argv[1], "-h")){
-            fprintf(stdout, "\nUsage: %s --<mode> <data>\n|CLI options|:-\
-            \n\t<data> = A data string which will be manipulated.\
-            \n\t<mode>:\n\t\t-e, --encode = Encodes the data string\
-            \n\t\t-d, --decode = Decodes the data string\n\n", argv[0]);
+        if(!Strcmp(argv[1], "-h")){
+            fprintf(stdout, "\nNote: Put space separated data in quotes.\
+            \nUsage: %s <opt> \"data\"\n|CLI options|:-\
+            \n\t-e - Encodes the data string\
+            \n\t-d - Decodes the data string\n\n", argv[0]);
+
         }
     }else if(argc==3){
-		if(!Strcmp(argv[1], "--encode") || !Strcmp(argv[1], "-e")){
+		if(!Strcmp(argv[1], "-e")){
 			encode(argv[2]);
-
-		} else if(!Strcmp(argv[1], "--decode") || !Strcmp(argv[1], "-d")){
+            // for(int i = 0; i < 127; ++i)
+            //     printf("%d: %c\n", i, i);
+		} else if(!Strcmp(argv[1], "-d")){
 			decode(argv[2]);
 		}
 	} else{
-        fprintf(stderr, "Usage: %s --encode/--decode \"data\"", argv[0]);
+        fprintf(stderr, "\nUsage: %s <opt> \"data\"\
+        \nFor more, check help section:\
+        \n    %s -h\n\n", argv[0], argv[0]);
     }
 }
