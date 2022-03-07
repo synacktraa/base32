@@ -10,23 +10,21 @@ gcc base32.c utils.c -o base32
 ---
 Ask For Help:
 
->```base32 -h 'or' base32 --help```
+>```base_32 -h```
 
 Output:
 
 ```
-
-Usage: base32  --<mode> <data>
+Note: Put space separated data in quotes.
+Usage: base_32 <opt> "data"
 |CLI options|:-
-        <data> = A data string which will be manipulated.
-        <mode>:
-                -e, --encode = Encodes the data string
-                -d, --decode = Decodes the data string
+        -e - Encodes the data string
+        -d - Decodes the data string
 ```
 ---
 ## Encoding:
 ```powershell
-base32 --encode "Hack Teh World"
+base_32 -e "Hack Teh World"
 ```
 Output:
 ```
@@ -35,7 +33,7 @@ JBQWG2ZAKRSWQICXN5ZGYZA=
 ---
 ## Decoding:
 ```powershell
-base32 --encode "JBQWG2ZAKRSWQICXN5ZGYZA="
+base_32 -d "JBQWG2ZAKRSWQICXN5ZGYZA="
 ```
 Output:
 ```
