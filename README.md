@@ -2,13 +2,7 @@
 
 >Base32 encoding and decoding algorithm implemented in C.
 
-Compile:
-
-```powershell
-gcc base32.c utils.c -o base32
-```
----
-Ask For Help:
+## Help:
 
 >```base_32 -h```
 
