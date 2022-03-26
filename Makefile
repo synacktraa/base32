@@ -14,4 +14,12 @@ base_32: base32.o base32_utils.o
 	$(BIN) $(CFLAGS) $^ -o $@
 
 clean:
-	rm *.o base_32 *.gch 2>/dev/null
+
+ifeq ($(OS),Windows_NT)
+	del *.o base_32.exe *.gch 
+else
+	CHECK := $(shell uname)
+	ifeq ($(CHECK), Linux)
+		rm *.o base_32 *.gch
+	endif
+endif
