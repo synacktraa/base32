@@ -1,4 +1,4 @@
-# Base32 Converter | <img src="https://app.codacy.com/project/badge/Grade/939d7a865e4743b4acd7c06faef5f12e"/> |
+# Base32 Converter | <img src="https://app.codacy.com/project/badge/Grade/49a87a43344d4fbdbd4d99c42b8457d9"/> |
 
 >A cli tool based on Base32 algorithm to encode and decode data.
 
