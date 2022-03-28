@@ -1,4 +1,6 @@
+#include<stdio.h>
 #include<string.h>
+
 
 int isLower(int ch){
    if(ch >= 97 && ch <= 122)
@@ -109,6 +111,39 @@ char* decToBin(int n){
     return strdup(binary);
     
 }   
+
+
+int charValidate(char ch) {
+
+    if(ch < 0 || ch > 126)
+        return -1;
+    return 0;
+}
+
+
+int get_filesize(char file_name[]){
+
+    FILE* fp = fopen(file_name, "r");
+    if (fp == NULL) {
+        return -1;
+    }
+    fseek(fp, 0L, SEEK_END);
+    int res = ftell(fp);
+    fclose(fp);
+  
+    return res;
+}
+
+
+int checkIfFileExists(const char * filename) {
+
+    FILE *file;
+    if((file = fopen(filename, "r")) != NULL) {
+        fclose(file);
+        return 1;
+    }
+    return 0;
+}
 
 
 char *basename(char const *path) {
