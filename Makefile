@@ -16,7 +16,7 @@ base_32: base32.o base32_utils.o
 clean:
 
 ifeq ($(OS),Windows_NT)
-	del *.o base_64.exe *.gch 
+	del *.o base_32.exe *.gch 
 else
-	rm *.o base_64 *.gch
+	rm *.o base_32 *.gch
 endif
