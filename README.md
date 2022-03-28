@@ -47,7 +47,7 @@ KN4W4QLDNN2HEYLB
 Output:
 
 ```terminal
-small portable base64-converter in C.
+small portable base32-converter in C.
 ```
 ---
 ```bash
