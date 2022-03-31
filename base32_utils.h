@@ -13,8 +13,6 @@ int binToDec(char* bin);
 int charValidate(char ch);
 int get_filesize(char file_name[]);
 int checkIfFileExists(const char * filename);
-char *win_basename_parser(char const *path);
-char *unix_basename_parser(char const *path);
-char *basename(char const *path);
+char *basename(char const *path, char slash);
 
 #endif
