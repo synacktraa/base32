@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<string.h>
 
-
 int isLower(int ch){
    if(ch >= 97 && ch <= 122)
       return 1;

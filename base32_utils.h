@@ -1,7 +1,7 @@
 #ifndef BASE32_UTILS /* Include guard */
 #define BASE32_UTILS
 
-//Function declarations
+//Function prototypes
 int isLower(int ch);
 int Strlen(const char* string);
 int insert(char*data, int index, int element, int uSize, int tSize);
